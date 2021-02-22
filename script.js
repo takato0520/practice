@@ -1,10 +1,27 @@
 let boxes = document.getElementsByClassName('box')
 var point = 0
 document.getElementById('point').textContent = point
-
+const limitTime = 10 //sec
+document.getElementById('timer').textContent = limitTime
 
 //STARTを押してからの処理
 function gameStart() {
+    var startTime = Date.now()
+    var timeDiff = limitTime
+    var countdown = function () {
+        timeDiff = Date.now() - startTime
+        timeDiff = limitTime - (timeDiff / 1000)
+        timeDiff *= 100 //少数第３位以下を切り捨て
+        timeDiff = Math.floor(timeDiff)
+        timeDiff = timeDiff / 100
+        document.getElementById('timer').textContent = timeDiff
+
+        if (timeDiff <= 0) {
+            clearInterval(countdownID)
+        }
+    }
+
+    let countdownID = setInterval(countdown, 10);
 
     //黄色をクリックしたら得点を＋１する,間違えたら−１するロジックを各Boxに追加する
     for (let index = 0; index < boxes.length; index++) {
@@ -38,6 +55,8 @@ function gameStart() {
 
     let timelimit = setInterval(getRandomBox, 1000)
 
+
+
     //ゲーム終了時の処理
     function gameEnd() {
         clearInterval(timelimit)
@@ -50,8 +69,7 @@ function gameStart() {
         }
         document.getElementById("startbtn").onclick = gameStart
     }
-    setTimeout(gameEnd, 10000)
-}
 
+}
 
 document.getElementById("startbtn").onclick = gameStart
