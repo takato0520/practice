@@ -18,6 +18,7 @@ function gameStart() {
 
         if (timeDiff <= 0) {
             clearInterval(countdownID)
+            gameEnd()
         }
     }
 
