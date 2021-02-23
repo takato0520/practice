@@ -6,6 +6,8 @@ document.getElementById('timer').textContent = limitTime
 
 //STARTを押してからの処理
 function gameStart() {
+    point = 0
+    document.getElementById('point').textContent = point
     var startTime = Date.now()
     var timeDiff = limitTime
     var countdown = function () {
@@ -17,7 +19,6 @@ function gameStart() {
         document.getElementById('timer').textContent = timeDiff
 
         if (timeDiff <= 0) {
-            clearInterval(countdownID)
             gameEnd()
         }
     }
@@ -43,6 +44,7 @@ function gameStart() {
     }
 
     document.getElementById("startbtn").textContent = "STOP"
+    document.getElementById("startbtn").onclick = ""
     document.getElementById("startbtn").onclick = gameEnd
 
 
@@ -68,6 +70,9 @@ function gameStart() {
             target.classList.remove('yellow')
             target.onclick = ""
         }
+        clearInterval(countdownID)
+        timeDiff = 0
+        document.getElementById("timer").textContent = timeDiff
         document.getElementById("startbtn").onclick = gameStart
     }
 
